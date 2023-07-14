@@ -1,29 +1,24 @@
 import { MongoClient } from "mongodb";
 
-export async function connectDatabase() {
-  const client = await MongoClient.connect(
-    "mongodb+srv://lorraineyul:jiaxuan13882060@cluster0.juyvyx6.mongodb.net/"
-  );
+const connectionString = `mongodb+srv://${process.env.mongodb_username}:${process.env.mongodb_password}@${process.env.mongodb_clustername}.juyvyx6.mongodb.net/`;
 
+export async function connectDatabase() {
+  const client = await MongoClient.connect(connectionString);
   return client;
 }
 
 async function insertDocument(client, collection, document) {
-  const db = client.db()
+  const db = client.db();
 
   const result = await db.collection(collection).insertOne(document);
 
-  return result
+  return result;
 }
 
 export async function getAllDocuments(client, collection, sort) {
   const db = client.db();
 
-  const documents = await db
-    .collection(collection)
-    .find()
-    .sort(sort)
-    .toArray();
+  const documents = await db.collection(collection).find().sort(sort).toArray();
 
   return documents;
 }
