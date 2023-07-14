@@ -1,6 +1,5 @@
 # NextEvents
 A platform for event discovery and filtering.
-
 Link:
 
 # Tech Stack
